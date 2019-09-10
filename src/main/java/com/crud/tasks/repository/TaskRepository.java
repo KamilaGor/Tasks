@@ -8,4 +8,7 @@ import java.util.List;
 public interface TaskRepository extends CrudRepository<Task, Long> {//udostępnia met i ligikę pobierania danych z b.d.
 	@Override
 	List<Task> findAll();
+
+	@Override
+	Task save(Task task);
 }

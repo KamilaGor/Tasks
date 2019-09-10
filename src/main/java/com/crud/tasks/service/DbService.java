@@ -16,8 +16,12 @@ public class DbService {//będzie wstrzykiwała do siebie klasę TaskRepository 
 		return repository.findAll();
 	}
 
-	public Task getTask(Long id) {
+	public Task getTask(final Long id) {
 		return repository.findById(id).orElse(null); //w klasie CrudRepository Optional<T> findById(Id id)
+	}
+
+	public Task saveTask(final Task task) { //met. opakowująca
+		return repository.save(task);
 	}
 
 }
