@@ -21,7 +21,7 @@ public class TaskController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "getTasks")
 	public List<TaskDto> getTasks() {
-		return new ArrayList<>();
+		return new ArrayList<TaskDto>(taskMapper.mapToTaskDtoToList(service.getAllTasks()));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "getTask")
@@ -30,8 +30,7 @@ public class TaskController {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
-	public void deleteTask(@RequestParam Long taskId) {
-		System.out.println("Task is deleted");
+	public void deleteTask(@RequestParam Long taskId) { service.deleteTask(taskId);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "updateTask")
