@@ -4,6 +4,7 @@ import com.crud.tasks.domain.Task;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {//udostępnia met i ligikę pobierania danych z b.d.
 	@Override
@@ -11,4 +12,10 @@ public interface TaskRepository extends CrudRepository<Task, Long> {//udostępni
 
 	@Override
 	Task save(Task task);
+
+	@Override
+	Optional<Task> findById(Long id);
+
+	@Override
+	void deleteById(Long id);
 }

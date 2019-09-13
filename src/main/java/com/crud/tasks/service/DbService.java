@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DbService {//będzie wstrzykiwała do siebie klasę TaskRepository (za pomocą@Autowired)
@@ -16,12 +17,11 @@ public class DbService {//będzie wstrzykiwała do siebie klasę TaskRepository 
 		return repository.findAll();
 	}
 
-	public Task getTask(final Long id) {
-		return repository.findById(id).orElse(null); //w klasie CrudRepository Optional<T> findById(Id id)
-	}
-
 	public Task saveTask(final Task task) { //met. opakowująca
 		return repository.save(task);
 	}
 
+	public Optional<Task> getTask(final Long id) {return repository.findById(id); }
+
+	public void deleteTask(final Long id) {}
 }
