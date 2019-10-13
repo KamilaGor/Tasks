@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/v1/trello")
 public class TrelloController {
@@ -25,8 +24,5 @@ public class TrelloController {
 				.filter(trelloBoardDto -> trelloBoardDto.getName() != null)
 				.filter(trelloBoardDto -> trelloBoardDto.getName().contains("Kodilla Application"))
 				.forEach(trelloBoardDto -> System.out.println("Board id: " + trelloBoardDto.getId() + " Board name: " + trelloBoardDto.getName()));
-
-//		Optional<TrelloBoardDto> optional = Optional.empty();
-//		optional.ifPresent(trelloBoardsDto -> System.out.println("My boards: " + trelloBoardsDto.getId() + trelloBoardsDto.getName()));
 	}
 }

@@ -8,9 +8,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component //adn.,kt. w trakcie budowania kontekstu aplikacji stworzy z niej beana
 public class TrelloClient { //wstrzykinie(za pomocą Autowired) beana kl.RestTemplate,aby umożliwić wysyłanie żądań klasie TrelloClient
@@ -45,11 +45,6 @@ public class TrelloClient { //wstrzykinie(za pomocą Autowired) beana kl.RestTem
 
 		TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getUrl(), TrelloBoardDto[].class);
 
-		if (boardsResponse !=null) {
-			return Arrays.asList(boardsResponse);
-		}
-		return new ArrayList<>();
-//      Optional<TrelloBoardDto> optional = Optional.empty();
-//		optional.ifPresent(trelloBoardsDto -> System.out.println("My boards: " + trelloBoardsDto.getId() + trelloBoardsDto.getName()));
+		return Arrays.asList(Optional.ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
 	}
 }
