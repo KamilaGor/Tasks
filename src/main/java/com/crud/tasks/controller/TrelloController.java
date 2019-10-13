@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/v1/trello")
@@ -18,12 +17,16 @@ public class TrelloController {
 	private TrelloClient trelloClient;
 
 	@RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
-	public void getTrelloBoards(URI url) {
-		List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards(url);
+	public void getTrelloBoards() {
+		List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
 
-		//trelloBoards.forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
-		trelloBoards.stream()
-				.filter(trelloBoardDto -> trelloBoardDto.getId() != null && trelloBoardDto.getName().contains("Kodilla"))
-				.collect(Collectors.toList());
+		trelloBoards.stream()` `
+				.filter(trelloBoardDto -> trelloBoardDto.getId() != null)
+				.filter(trelloBoardDto -> trelloBoardDto.getName() != null)
+				.filter(trelloBoardDto -> trelloBoardDto.getName().contains("Kodilla Application"))
+				.forEach(trelloBoardDto -> System.out.println("Board id: " + trelloBoardDto.getId() + " Board name: " + trelloBoardDto.getName()));
+
+//		Optional<TrelloBoardDto> optional = Optional.empty();
+//		optional.ifPresent(trelloBoardsDto -> System.out.println("My boards: " + trelloBoardsDto.getId() + trelloBoardsDto.getName()));
 	}
 }

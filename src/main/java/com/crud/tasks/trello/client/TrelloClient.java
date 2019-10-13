@@ -19,7 +19,7 @@ public class TrelloClient { //wstrzykinie(za pomocą Autowired) beana kl.RestTem
 	private String trelloApiEndpoint;
 
 	@Value("${trello.app.key}")
-	private  String trelloAppKey;
+	private String trelloAppKey;
 
 	@Value("${trello.app.token}")
 	private String trelloToken;
@@ -32,20 +32,24 @@ public class TrelloClient { //wstrzykinie(za pomocą Autowired) beana kl.RestTem
 
 	private URI getUrl() {
 
-		 URI url= UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUsername + "/boards")
+		URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUsername + "/boards")
 				.queryParam("key", trelloAppKey)
 				.queryParam("token", trelloToken)
 				.queryParam("fields", "name,id").build().encode().toUri();
-		 return url;
+		return url;
 	}
 
-	public List<TrelloBoardDto> getTrelloBoards(URI url) {
+	public List<TrelloBoardDto> getTrelloBoards() {
 
-		TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
+//		System.out.println(getUrl());
+
+		TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getUrl(), TrelloBoardDto[].class);
 
 		if (boardsResponse !=null) {
 			return Arrays.asList(boardsResponse);
 		}
 		return new ArrayList<>();
+//      Optional<TrelloBoardDto> optional = Optional.empty();
+//		optional.ifPresent(trelloBoardsDto -> System.out.println("My boards: " + trelloBoardsDto.getId() + trelloBoardsDto.getName()));
 	}
 }

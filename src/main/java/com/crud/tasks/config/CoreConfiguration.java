@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class CoreConfiguration {
 
 	@Bean
-	public RestTemplate restTemplate() { //kl. restTemplate(ze Springa) umożliwia realizoawnie żądań HTTP pomiędzy serwerami
+	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
 }
